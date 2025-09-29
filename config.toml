@@ -1,0 +1,30 @@
+baseURL = "https://example.github.io/your-repo/"
+languageCode = "en-us"
+title = "My Blog"
+theme = "LoveIt"
+defaultContentLanguage = "en"
+hasCJKLanguage = true
+
+[params]
+  description = "A Hugo site using LoveIt theme"
+
+[languages]
+[languages.en]
+  languageName = "English"
+  weight = 1
+  title = "My Blog"
+  params.description = "English homepage"
+
+[languages.zh]
+  languageName = "简体中文"
+  weight = 2
+  title = "我的博客"
+  params.description = "中文首页"
+
+[permalinks]
+  post = "/post/:year/:month/:title/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
