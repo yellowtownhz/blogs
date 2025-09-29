@@ -1,0 +1,5 @@
+{{ define "_default/_markup/render-codeblock.html" }}
+{{/* Minimal fallback render hook for code blocks */}}
+{{ $lang := .Get "language" | default ( .Get "lang" ) | default "" }}
+<pre><code class="language-{{ $lang }}">{{ .Inner | safeHTML }}</code></pre>
+{{ end }}

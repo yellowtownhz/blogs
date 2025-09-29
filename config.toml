@@ -1,30 +1,111 @@
+# baseURL = "http://localhost:1313/your-repo/"
 baseURL = "https://example.github.io/your-repo/"
-languageCode = "en-us"
-title = "My Blog"
 theme = "LoveIt"
+title = "Yellowtown's Blog"
+
+languageCode = "en"
 defaultContentLanguage = "en"
 hasCJKLanguage = true
 
+# whether to use git commit log
+# 是否使用 git 信息
+enableGitInfo = true
+# whether to use emoji code
+# 是否使用 emoji 代码
+enableEmoji = true
+
 [params]
-  description = "A Hugo site using LoveIt theme"
+  description = "Blog of yellowtown"
+
+  # Home profile (top center avatar + slogan)
+  [params.home.profile]
+    enable = true
+    avatar = "/images/avatar.svg"
+    name = "yellowtown"
+    slogan = "A Clean, Elegant but Advanced Hugo Theme"
+
+  # Home posts list
+  [params.home.posts]
+    enable = true
+    paginate = 5
+
+  # Sidebar configuration (example)
+  [params.sidebar]
+    enable = true
+    showRecent = true
+    showTags = true
+
+  # Social links used in header/footer
+  [params.social]
+    github = "yellowtownhz"
+    twitter = "https://twitter.com/yourname"
+    email = "yellowtownhz13@gmail.com"
+
+  # Plugins / features toggles
+  [params.plugins]
+    mermaid = true
+    katex = false
+
+  # Search and comments (toggle providers as needed)
+  [params.search]
+    enable = true
+    provider = "local" # or "algolia"
+
+  [params.comment]
+    provider = "giscus" # or "disqus" / "none"
+    enable = false
 
 [languages]
 [languages.en]
   languageName = "English"
   weight = 1
-  title = "My Blog"
+  title = "Yellowtown's Blog"
   params.description = "English homepage"
 
 [languages.zh]
   languageName = "简体中文"
   weight = 2
-  title = "我的博客"
+  title = "黄镇的博客"
   params.description = "中文首页"
 
 [permalinks]
   post = "/post/:year/:month/:title/"
 
+# Menu config
+[menu]
+  [[menu.main]]
+    weight = 1
+    identifier = "posts"
+    # you can add extra information before the name (HTML format is supported), such as icons
+    pre = ""
+    # you can add extra information after the name (HTML format is supported), such as icons
+    post = ""
+    name = "Posts"
+    url = "/posts/"
+    # title will be shown when you hover on this menu link
+    title = ""
+  [[menu.main]]
+    weight = 2
+    identifier = "tags"
+    pre = ""
+    post = ""
+    name = "Tags"
+    url = "/tags/"
+    title = ""
+  [[menu.main]]
+    weight = 3
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = ""
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
+  [markup.highlight]
+    # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
+    noClasses = false

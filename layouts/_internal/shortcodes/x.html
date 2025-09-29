@@ -1,0 +1,7 @@
+{{/* Minimal fallback for internal shortcode x.html used by theme partials */}}
+{{- /* If inner content exists, render it, otherwise try common params */ -}}
+{{- if .Inner -}}
+{{ .Inner | safeHTML }}
+{{- else -}}
+{{ with .Get 0 }}{{ . | safeHTML }}{{ end }}
+{{- end -}}

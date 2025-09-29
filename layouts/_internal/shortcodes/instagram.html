@@ -1,0 +1,7 @@
+{{/* Minimal fallback for instagram shortcode used by theme */}}
+{{- $id := .Get "id" | default (index .Params 0) -}}
+{{- if $id -}}
+<div class="instagram-embed">Instagram: {{ $id }}</div>
+{{- else -}}
+<div class="instagram-embed">Instagram embed</div>
+{{- end -}}

@@ -1,0 +1,6 @@
+{{/* Minimal fallback for internal shortcode x_simple.html used by theme partials */}}
+{{- if .Inner -}}
+{{ .Inner | safeHTML }}
+{{- else -}}
+{{ with .Get 0 }}{{ . | safeHTML }}{{ end }}
+{{- end -}}
