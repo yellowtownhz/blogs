@@ -1,5 +1,4 @@
-# baseURL = "http://localhost:1313/your-repo/"
-baseURL = "https://example.github.io/your-repo/"
+baseURL = "https://yellowtownhz.github.io/blogs"
 theme = "LoveIt"
 title = "Yellowtown's Blog"
 
