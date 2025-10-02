@@ -101,18 +101,19 @@ From a practical perspective: these two data-handling tricks can be skipped for 
 
    Two reward designs:  
    - **Guard-only**:  
+     ![image.png](guard-only-reward-design.png)
      - Reward = 1 if guard predicts safe  
      - Reward = 0 if unsafe or controversial  
      - Problem: model learns to refuse answering everything (safe refusal always yields 1).  
 
-     ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/45370057-7772-40f2-9769-c95add8b649e.png)  
+    ![image.png](reject-answer-problem.png)
 
    - **Mixed reward** (Guard + WorldPM):  
      - Unsafe → reward ≤ -10  
      - Refusal → reward ≤ -5 (often lower since WorldPM rates low helpfulness)  
      - Safe & helpful → reward ≈ WorldPM score  
 
-     ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/da20239e-e388-426b-87d3-494fc4dcfd62.png)  
+     ![image.png](hybrid-reward-design.png)
 
 7. **General capability evaluation**: Arena-Hard-v2 (alignment), AIME-25 (math), LiveCodeBench-V6 (coding), GPQA (knowledge).  
 
@@ -122,7 +123,7 @@ From a practical perspective: these two data-handling tricks can be skipped for 
      - Use Qwen3Guard-Gen to classify.  
      - If >85% unsafe/controversial, label token unsafe.  
 
-     ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/edb48cb7-2467-474e-9534-1d80754f47c9.png)  
+     ![image.png](rollout-voting.png)
 
    - Issue: overestimation—sometimes safe tokens flagged unsafe due to unsafe continuations.  
    - Fix: ask **Qwen3-235B-A22B** as LLM judge on prefix to reassess.  
@@ -132,21 +133,21 @@ From a practical perspective: these two data-handling tricks can be skipped for 
        - Tokens after unsafe detection → unsafe/controversial  
        - Tokens before → safe  
 
-     ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/2b6548f6-58f9-41a2-86ac-0214d740bc63.png)  
+     ![image.png](token-labeling-method.png)
 
 9. **Classification heads**: 4 in total.  
    - Query heads: safe/unsafe classification + unsafe category classification  
    - Response heads: token-level classification  
 
-![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/bd0e7dfb-fc0e-40f2-ac7f-d618c0713195.png)  
+![image.png](classification-head-training.png)
 
    - Query loss = sum of two cross-entropy losses  
 
-![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/b5bfb1fc-a486-4e89-8700-55247bb0ec79.png)  
+![image.png](query-loss.png)
 
    - Response loss = average cross-entropy across tokens  
 
-![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/704b4322-2510-44c4-93da-b900d50d2730.png)  
+![image.png](response-loss.png)
 
    - Trick: *q-cat* and *r-cat* losses are conditional—only applied when labels are unsafe/controversial, ignored if safe.  
 

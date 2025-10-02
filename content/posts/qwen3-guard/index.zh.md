@@ -67,13 +67,13 @@ resources:
     
 6、用在RL里面。GSPO，Qwen3-4B。13.7k思考数据和6.7k的非思考数据。有两种reward的设计方式
 - 一种是guard-only：
-![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/45370057-7772-40f2-9769-c95add8b649e.png)
+![image.png](guard-only-reward-design.png)
 
     如果是guard模型输出safe奖励等于1，输出unsafe或者controversial就给0。但是这种会让模型学会拒绝回答所有的问题，因为拒绝回答肯定奖励都是1分。
     
-    ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/4f580551-02e7-4bda-a2f5-2ea4da979746.png)
+    ![image.png](reject-answer-problem.png)
     
-- 另一个是混合奖励：![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/da20239e-e388-426b-87d3-494fc4dcfd62.png)
+- 另一个是混合奖励：![image.png](hybrid-reward-design.png)
     
     WorldPM是通义团队之前发布的一个RM，用来给helpfulness打分的。奖励大概的逻辑是：如果回答不安全，奖励只能小于等于-10，甚至如果回答既不安全又没有帮助的奖励还会比-10低。如果模型拒绝回答，奖励只能小于等于-5，而且大概率因为拒绝回答的原因WorldPM对于helpfulness打一个很低的分数，最后的奖励比-5，等于说拒绝回答的奖励也不高。如果安全并且没有拒绝回答，奖励就按照WorldPM的打分来。
     
@@ -82,22 +82,22 @@ resources:
 8、对于训练token-level的内容安全模型来讲，最大的挑战在于token-level的标注。一共分为两步
     
 - 基于rollout的voting
-    ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/edb48cb7-2467-474e-9534-1d80754f47c9.png)
+    ![image.png](rollout-voting.png)
     
     对于某一个tokenSi，把Si以及之前的prefix让大模型反复采样rollout，采样后的输出让Qwen3Guard-Gen模型来分类，如果平均下来被分类为unsafe或者controversial的比例大于85%，则Si本身是一个unsafe的token。
     
 - 但是，基于rollout的voting本身有一个问题在于会过度估计一些token的risk，明明这个token本身的安全的，但是由于模型本身在安全性上做的不好导致经常补全不安全的回答，造成把这个token分类为unsafe。一个补救的办法是把通过rollout报警出来的token加上他的prefix（不包括后面的补全部分），让Qwen3-235B-A22B来当LLM judge，判断这个prefix是否安全。
     
 - 最终对于sampler-level的标签是unsafe或者controversial的样本来说，按照上述两个方法标注出来的token之后的token被标注为sample-evel的标签（unsafe或者controversial），之前的token被标注为safe。
-    ![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/2b6548f6-58f9-41a2-86ac-0214d740bc63.png)
+    ![image.png](token-labeling-method.png)
     
 9、分类头的训练。一共有4个head，两个query的head，两个response的head，其中query的两个head一个用来判断safe/unsafe，一个用来判断具体的unsafe种类。
 
-![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/bd0e7dfb-fc0e-40f2-ac7f-d618c0713195.png)
+![image.png](classification-head-training.png)
 
-Query的loss就是两个cross-entropy loss的叠加：![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/b5bfb1fc-a486-4e89-8700-55247bb0ec79.png)
+Query的loss就是两个cross-entropy loss的叠加：![image.png](query-loss.png)
 
-Response的loss是所有token的cross-entropy的平均：![image.png](https://alidocs.oss-cn-zhangjiakou.aliyuncs.com/res/8oLl952yojkaNlap/img/704b4322-2510-44c4-93da-b900d50d2730.png)
+Response的loss是所有token的cross-entropy的平均：![image.png](response-loss.png)
 
 另外还有一个技巧是：q-cat和r-cat loss本身是有条件的，只有在risk的标注是unsafe或者controversial的时候才会把q-cat和r-cat loss参与计算loss，如果是safe的情况下就忽略。
 
