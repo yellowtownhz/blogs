@@ -1,11 +1,11 @@
 ---
-title: "RL's Razor: 为什么在强化学习遗忘更少"
+title: "RL's Razor: 为什么强化学习遗忘少"
 date: 2025-10-06T12:00:00+08:00
 tags: ["强化学习", "遗忘"]
 categories: ["强化学习"]
 draft: false
-description: "通过solid的evidence验证RL比SFT遗忘更少的原因是on-policy训练，on-policy训练自身带有一种隐式的低KL的约束，使得最终RL后模型输出分布和RL前的KL距离更小。"
-summary: "为什么在强化学习遗忘更少：on-policy"
+# description: "通过solid的evidence验证RL比SFT遗忘更少的原因是on-policy训练，on-policy训练自身带有一种隐式的低KL的约束，使得最终RL后模型输出分布和RL前的KL距离更小。"
+summary: "RL比SFT遗忘更少的核心原因是on-policy训练天然具有低KL约束"
 author: "黄镇"
 lang: "zh"
 type: "posts"
@@ -38,7 +38,7 @@ resources:
 
 大致意思是基础模型在pre-training和post-training训练完成后就可以看作是一个静态的模型了，无法根据实际使用场景持续进化、持续获得新的能力。在将来每一个模型都是一个自我进化的agent，可以不断的根据最新的数据、最新的环境和最新的目标来进化。这一点和之前CV时代的**自适应学习**有相通之处，相同的地方都是在线上进行不断进化，不需要收集数据+微调模型+重新部署；不同之处在于自适应学习的概念只局限于数据本身的适应，这里的self-evolve并不局限于数据，而是包含数据、环境和目标的"适应"。
 
-### 2. introduction单独一段强调研究问题
+### 2. Introduction特别强调研究问题
 
 直接在introduction中用单独的一段来提出问题：RL比SFT遗忘更少的原因是什么？这一点值得在论文写作中借鉴，先发问可以让整个论文更加聚焦到要解决的关键问题上。
 
