@@ -15,6 +15,8 @@ enableEmoji = true
 
 [params]
   description = "Blog of yellowtown"
+  [params.page]
+    relative = true
 
   # Home profile (top center avatar + slogan)
   [params.home.profile]
@@ -83,22 +85,22 @@ enableEmoji = true
     url = "/posts/"
     # title will be shown when you hover on this menu link
     title = ""
-  [[menu.main]]
-    weight = 2
-    identifier = "tags"
-    pre = ""
-    post = ""
-    name = "Tags"
-    url = "/tags/"
-    title = ""
-  [[menu.main]]
-    weight = 3
-    identifier = "categories"
-    pre = ""
-    post = ""
-    name = "Categories"
-    url = "/categories/"
-    title = ""
+  # [[menu.main]]
+    # weight = 2
+    # identifier = "tags"
+    # pre = ""
+    # post = ""
+    # name = "Tags"
+    # url = "/tags/"
+    # title = ""
+  # # [[menu.main]]
+    # weight = 3
+    # identifier = "categories"
+    # pre = ""
+    # post = ""
+    # name = "Categories"
+    # url = "/categories/"
+    # title = ""
 
 [markup]
   [markup.goldmark]
