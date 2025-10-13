@@ -1,7 +1,7 @@
 ---
 # weight: 1
 title: "LoRA without Regret: PEFT什么时候可以达到全量微调"
-date: 2025-10-13T12:00:00+08:00
+date: 2025-10-12T12:00:00+08:00
 tags: ["RL", "PEFT"]
 categories: ["General"]
 draft: false

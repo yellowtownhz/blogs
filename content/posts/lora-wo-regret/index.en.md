@@ -1,12 +1,12 @@
 ---
 # weight: 1
 title: "LoRA without Regret"
-date: 2025-10-13T12:00:00+08:00
+date: 2025-10-12T12:00:00+08:00
 tags: ["RL", "PEFT"]
 categories: ["General"]
 draft: false
 summary: "Thinking Machines' latest blog finally demystifies LoRA"
-author: "Huang Zhen"
+author: "yellowtown"
 lang: "en"
 type: "posts"
 resources:
