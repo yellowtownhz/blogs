@@ -62,13 +62,14 @@ For RL, rank = 1 can achieve the same performance as full fine-tuning (with a le
 
 **Details**: The RL algorithm details here are unclear — whether it’s on-policy or not — but it likely is on-policy, since Thinking Machines tends to focus on on-policy methods.  
 
-## Why does rank=1 work for RL?
+{{< admonition note "Why does rank=1 work for RL?" >}}
 With SFT, rank = 1 performs far worse than full fine-tuning. Why can RL match it? The blog’s explanation is that RL data carries less information than SFT data:  
   - In SFT, a response of length `n` contains `O(n)` units of information, since each token has a ground truth target.  
   - In RL, one data sample carries only 1 unit of information — the answer is simply correct or incorrect.  
   - While this may not be mathematically rigorous, the blog argues that even rank = 1 LoRA has more parameters than the calculated information content for RL, so it has enough capacity to learn the required skill.
+{{< /admonition >}}
 
-## How does LoRA’s effective learning rate change with training?
+{{< admonition note "How does LoRA’s effective learning rate change with training?" >}}
 LoRA contains two matrices: `A` (randomly initialized) and `B` (initialized to all zeros).  
 Early in training, changes in `A` barely affect the overall `ΔW = A × B`, meaning the *effective* learning rate is low. Later, as `B` values grow, the effective learning rate of `A` increases.  
 Therefore:  
@@ -78,3 +79,4 @@ Therefore:
 Empirical results:  
 - For small datasets, LoRA’s optimal learning rate is ~15× that of full fine-tuning.  
 - For large datasets, it’s ~10×.
+{{< /admonition >}}
