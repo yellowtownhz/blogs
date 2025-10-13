@@ -1,5 +1,5 @@
 ---
-weight: 1
+# weight: 1
 title: "Qwen3Guard's Key Technical Details"
 date: 2025-09-29T12:00:00+08:00
 lastmod: 2025-09-29T12:00:00+08:00

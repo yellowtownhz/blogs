@@ -1,5 +1,5 @@
 ---
-weight: 1
+# weight: 1
 title: "RL's Razor"
 date: 2025-10-06T12:00:00+08:00
 tags: ["RL", "Forget"]
