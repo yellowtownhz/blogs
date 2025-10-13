@@ -1,11 +1,11 @@
 ---
-weight: 1
+# weight: 1
 title: "LoRA without Regret: PEFT什么时候可以达到全量微调"
 date: 2025-10-13T12:00:00+08:00
-tags: ["intro"]
-categories: ["general"]
+tags: ["RL", "PEFT"]
+categories: ["General"]
 draft: false
-summary: "Thinking Machines最新博客把 LoRA 给整明白了"
+summary: "Thinking Machines最新博客把LoRA给整明白了"
 author: "黄镇"
 lang: "zh"
 type: "posts"
