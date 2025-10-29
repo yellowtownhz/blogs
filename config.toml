@@ -15,6 +15,8 @@ enableEmoji = true
 
 [params]
   description = "Blog of yellowtown"
+  # 启用数学公式渲染
+  math = true
 
   # Header config
   # 页面头部导航栏配置
@@ -58,7 +60,7 @@ enableEmoji = true
   # Plugins / features toggles
   [params.plugins]
     mermaid = true
-    katex = false
+    katex = true
 
   # Search and comments (toggle providers as needed)
   [params.search]
@@ -68,6 +70,18 @@ enableEmoji = true
   [params.comment]
     provider = "giscus" # or "disqus" / "none"
     enable = true
+
+  [params.page.math]
+      enable = true
+      inlineLeftDelimiter = ""
+      inlineRightDelimiter = ""
+      # LoveIt CHANGED | 0.2.11 default block delimiter is $$ ... $$, \[ ... \], \begin{equation} ... \end{equation} and some other functions
+      blockLeftDelimiter = ""
+      blockRightDelimiter = ""
+      # KaTeX extension copy_tex
+      copyTex = true
+      # KaTeX extension mhchem
+      mhchem = true
 
 [languages]
 [languages.en]
@@ -115,11 +129,28 @@ enableEmoji = true
     # url = "/categories/"
     # title = ""
 
+  
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
   [markup.highlight]
     # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # 保证可渲染 HTML 和公式
+    [markup.goldmark.parser]
+      autoHeadingID = true
+      [markup.goldmark.parser.attribute]
+        block = true
+      [markup.goldmark.parser.extensions]
+        table = true
+        linkify = true
+        strikethrough = true
+        taskList = true
+        typographer = false
+        definitionList = true
+        footnote = true
+        emoji = true
+        math = true
+        # 关键：禁用下划线作为 emphasis 分隔符
+        underline = false
