@@ -8,6 +8,7 @@ summary: "Video-KTR proposes a modality-aware token-level reinforcement learning
 author: "Huang Zhen"
 lang: "en"
 type: "posts"
+math: true
 ---
 
 ## Introduction: The Granularity Dilemma in Video Reasoning

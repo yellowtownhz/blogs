@@ -8,6 +8,7 @@ summary: "How can large models continually learn new knowledge without forgettin
 author: "黄镇"
 lang: "en"
 type: "posts"
+math: true
 ---
 
 ## 1. The Problem: The "Forgetting Dilemma" of Large Models
